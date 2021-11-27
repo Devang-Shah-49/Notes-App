@@ -54,7 +54,8 @@ yargs.command({
     command: 'list', //name of cmd
     describe: 'list a note', //description of cmd
     handler() {
-        console.log('listing a note') //code to run(vvvv imp)
+        console.log(notes.listNote());
+        // console.log('listing a note') //code to run(vvvv imp)
     }
 })
 //create yargs read command //node app.js read

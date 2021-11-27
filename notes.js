@@ -49,7 +49,29 @@ const addNote = function (title, body){
     }
 }
 
+const removeNote = function (title, body){
+    const notes = loadNotes();
+    //use filter to traverse each note then remove the one that matches
+    const notesToKeep = notes.filter (function (note){
+        if ((note.title === title) && (note.body === body)){
+            // console.log('Note removed')
+            return false
+        } else {
+            // console.log('No such note exists!')
+            return true
+        }
+    })
+    // if initial notes length is greater than length after calling remove func. it means note is removed. else not
+    if (notes.length > notesToKeep.length) {
+        console.log(chalk.green.inverse('Note removed'))
+    } else {
+        console.log(chalk.red.inverse('No such note found'))
+    }
+    saveNotes(notesToKeep)
+}
+
 module.exports = {
     getNotes: getNotes,
-    addNote: addNote
+    addNote: addNote,
+    removeNote: removeNote
 }

@@ -1,12 +1,12 @@
 const fs = require('fs') //npm packages
 const chalk = require('chalk')
 
-const getNotes = function () {
+const getNotes = () => {
     return '*******Your Notes********'
 }
 
 //func to load current notes.json file contents
-const loadNotes = function(){
+const loadNotes = () => {
     try {
         const dataBuffer = fs.readFileSync('notes.json') //reading a file genrates buffer numerical values(machine readable)
         const dataJSON = dataBuffer.toString(); //buffer toString(human readable strings)
@@ -21,21 +21,24 @@ const loadNotes = function(){
 }
 
 //func to write notes to notes.json file after converting JS value to JSON string
-const saveNotes = function (notes) {
+const saveNotes = (notes) => {
     const dataToWrite = JSON.stringify(notes)
     fs.writeFileSync('notes.json', dataToWrite)
 }
 
-const addNote = function (title, body){
+const addNote = (title, body) => {
     const notes = loadNotes();
     //if we find a note with same title n body, we dont need to add it again 
-    const duplicateNotes = notes.filter (function (note){ //filter helps to traverse notes one-by-one
-        if ((note.title === title) && (note.body === body)){
-            return true
-        } else {
-            return false
-        }
-    })
+    const duplicateNotes = notes.filter ((note) => ((note.title === title) && (note.body === body)))
+    
+    // const duplicateNotes = notes.filter (function (note){ //filter helps to traverse notes one-by-one
+    //     if ((note.title === title) && (note.body === body)){
+    //         return true
+    //     } else {
+    //         return false
+    //     }
+    // })
+
     // if entered note is not a duplicate add it else print error message
     if (duplicateNotes.length === 0){
         notes.push({ //pushes new values to cuurent notes object i.e. append
@@ -49,7 +52,7 @@ const addNote = function (title, body){
     }
 }
 
-const removeNote = function (title, body){
+const removeNote = (title, body) => {
     const notes = loadNotes();
     //use filter to traverse each note then remove the one that matches
     const notesToKeep = notes.filter (function (note){

@@ -62,8 +62,21 @@ yargs.command({
 yargs.command({
     command: 'read', //name of cmd
     describe: 'read a note', //description of cmd
-    handler() {
-        console.log('reading a note') //code to run(vvvv imp)
+    builder:{
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        },
+        body:{
+            describe: 'Note Content',
+            demandOption: false,
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        // console.log('reading a note') //code to run(vvvv imp)
+        notes.readNote(argv.title);
     }
 })
 

@@ -29,7 +29,6 @@ const saveNotes = (notes) => {
 const addNote = (title, body) => {
     const notes = loadNotes();
     //if we find a note with same title n body, we dont need to add it again 
-    const duplicateNotes = notes.filter ((note) => ((note.title === title) && (note.body === body)))
     
     // const duplicateNotes = notes.filter (function (note){ //filter helps to traverse notes one-by-one
     //     if ((note.title === title) && (note.body === body)){
@@ -39,8 +38,23 @@ const addNote = (title, body) => {
     //     }
     // })
 
+    // const duplicateNotes = notes.filter ((note) => ((note.title === title) && (note.body === body)))
+    const duplicateNote = notes.find((note) => ((note.title === title) && (note.body === body)))
+
     // if entered note is not a duplicate add it else print error message
-    if (duplicateNotes.length === 0){
+    // if (duplicateNotes.length === 0){
+    //     notes.push({ //pushes new values to cuurent notes object i.e. append
+    //         title: title,
+    //         body: body
+    //     })
+    //     saveNotes(notes)
+    //     console.log('New note added')
+    // } else {
+    //     console.log('Unable to add note. Identical note already exists!')
+    // }
+
+    // debugger
+    if (!duplicateNote){
         notes.push({ //pushes new values to cuurent notes object i.e. append
             title: title,
             body: body
@@ -83,9 +97,23 @@ const listNote = () => {
     )
 }
 
+const readNote = (title) => {
+    const notes = loadNotes();
+    const note = notes.find(
+        (note) => note.title === title
+    )
+    if (note) {
+        console.log(chalk.inverse(note.title))
+        console.log(note.body)
+    } else {
+        console.log(chalk.red.inverse('Note not found!'))
+    }
+}
+
 module.exports = {
     getNotes: getNotes,
     addNote: addNote,
     removeNote: removeNote,
-    listNote: listNote
+    listNote: listNote,
+    readNote: readNote
 }
